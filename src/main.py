@@ -2,23 +2,27 @@ import flet as ft
 import flet_permission_handler as fph
 from notification import send_notification
 
+
 def main(page: ft.Page):
     page.title = "🔔 Notification Application"
     page.scroll = ft.ScrollMode.ADAPTIVE
+    page.appbar = ft.AppBar(title=ft.Text("🔐 Notification Permission Manager"))
 
     ph = fph.PermissionHandler()
     page.overlay.append(ph)
 
     # Text element to display the status of notifications
-    status_text = ft.Text("🔒 Notification permission status unknown...", color=ft.Colors.GREY)
+    status_text = ft.Text(
+        "🔒 Notification permission status unknown...", color=ft.Colors.GREY
+    )
 
     # Notification button
     notify_button = ft.ElevatedButton("Send Notification", disabled=True)
 
     # Function to handle notification sending
     def on_notify_click(e):
-        title = "Flet Notification"
-        text = "This is a test notification."
+        title = status_text.value
+        text = title_input.value
         send_notification(title, text, status_text)
         page.update()
 
@@ -42,20 +46,30 @@ def main(page: ft.Page):
         page.update()
 
     # Building the UI components
+    title_input = ft.TextField(hint_text="Title")
+    message_input = ft.TextField(hint_text="Message")
     page.add(
-        ft.AppBar(title=ft.Text("🔐 Notification Permission Manager")),
-        status_text,
-        ft.OutlinedButton(
-            "Check Notification Permission",
-            data=fph.PermissionType.NOTIFICATION,
-            on_click=check_permission,
-        ),
-        ft.OutlinedButton(
-            "Request Notification Permission",
-            data=fph.PermissionType.NOTIFICATION,
-            on_click=request_permission,
-        ),
-        notify_button
+        ft.SafeArea(
+            ft.Column(
+                controls=[
+                    status_text,
+                    title_input,
+                    message_input,
+                    ft.OutlinedButton(
+                        "Check Notification Permission",
+                        data=fph.PermissionType.NOTIFICATION,
+                        on_click=check_permission,
+                    ),
+                    ft.OutlinedButton(
+                        "Request Notification Permission",
+                        data=fph.PermissionType.NOTIFICATION,
+                        on_click=request_permission,
+                    ),
+                    notify_button,
+                ]
+            )
+        )
     )
+
 
 ft.app(main)
