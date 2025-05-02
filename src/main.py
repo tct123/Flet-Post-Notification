@@ -17,7 +17,7 @@ def main(page: ft.Page):
     # )
 
     # Notification button
-    notify_button = ft.ElevatedButton("Send Notification", disabled=True)
+    notify_button = ft.ElevatedButton(text="Send Notification", disabled=True)
 
     # Function to handle notification sending
     def on_notify_click(e):
@@ -56,12 +56,12 @@ def main(page: ft.Page):
                     title_input,
                     message_input,
                     ft.OutlinedButton(
-                        "Check Notification Permission",
+                        text="Check Notification Permission",
                         data=fph.PermissionType.NOTIFICATION,
                         on_click=check_permission,
                     ),
                     ft.OutlinedButton(
-                        "Request Notification Permission",
+                        text="Request Notification Permission",
                         data=fph.PermissionType.NOTIFICATION,
                         on_click=request_permission,
                     ),
