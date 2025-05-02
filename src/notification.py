@@ -1,7 +1,7 @@
-
 import os
 import traceback
 from jnius import autoclass
+
 
 def send_notification(title, text, status_text):
     try:
@@ -12,11 +12,11 @@ def send_notification(title, text, status_text):
         activity = activity_host.mActivity
 
         # Access the Android notification manager
-        Context = autoclass('android.content.Context')
-        NotificationManager = autoclass('android.app.NotificationManager')
-        NotificationChannel = autoclass('android.app.NotificationChannel')
-        Notification = autoclass('android.app.Notification')
-        NotificationBuilder = autoclass('android.app.Notification$Builder')
+        Context = autoclass("android.content.Context")
+        NotificationManager = autoclass("android.app.NotificationManager")
+        NotificationChannel = autoclass("android.app.NotificationChannel")
+        Notification = autoclass("android.app.Notification")
+        NotificationBuilder = autoclass("android.app.Notification$Builder")
 
         # Start the notification service
         notification_service = activity.getSystemService(Context.NOTIFICATION_SERVICE)
