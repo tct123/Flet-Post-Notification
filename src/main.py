@@ -21,8 +21,8 @@ def main(page: ft.Page):
 
     # Function to handle notification sending
     def on_notify_click(e):
-        title = status_text.value
-        text = title_input.value
+        title = title_input.value
+        text = message_input.value
         send_notification(title, text, status_text)
         page.update()
 
