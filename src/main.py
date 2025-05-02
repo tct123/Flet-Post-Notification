@@ -12,9 +12,9 @@ def main(page: ft.Page):
     page.overlay.append(ph)
 
     # Text element to display the status of notifications
-    status_text = ft.Text(
-        "🔒 Notification permission status unknown...", color=ft.Colors.GREY
-    )
+    # status_text = ft.Text(
+    #    "🔒 Notification permission status unknown...", color=ft.Colors.GREY
+    # )
 
     # Notification button
     notify_button = ft.ElevatedButton("Send Notification", disabled=True)
@@ -23,7 +23,10 @@ def main(page: ft.Page):
     def on_notify_click(e):
         title = title_input.value
         text = message_input.value
-        send_notification(title, text, status_text)
+        send_notification(
+            title,
+            text,
+        )
         page.update()
 
     notify_button.on_click = on_notify_click
@@ -31,18 +34,16 @@ def main(page: ft.Page):
     # Function to check permission status
     def check_permission(e):
         result = ph.check_permission(e.control.data)
-        status_text.value = f"Permission check: {e.control.data.name} - {result}"
+        print(f"Permission check: {e.control.data.name} - {result}")
         notify_button.disabled = not result
-        status_text.color = ft.Colors.GREEN if result else ft.Colors.RED
         page.update()
 
     # Function to request notification permission
     def request_permission(e):
         result = ph.request_permission(e.control.data)
         resultt = ph.request_permission(fph.PermissionType.ACCESS_NOTIFICATION_POLICY)
-        status_text.value = f"Permission requested: {e.control.data.name} - {result}"
+        print(f"Permission requested: {e.control.data.name} - {result}")
         notify_button.disabled = not result
-        status_text.color = ft.Colors.GREEN if result else ft.Colors.RED
         page.update()
 
     # Building the UI components
@@ -52,7 +53,6 @@ def main(page: ft.Page):
         ft.SafeArea(
             ft.Column(
                 controls=[
-                    status_text,
                     title_input,
                     message_input,
                     ft.OutlinedButton(

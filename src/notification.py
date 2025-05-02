@@ -3,7 +3,7 @@ import traceback
 from jnius import autoclass
 
 
-def send_notification(title, text, status_text):
+def send_notification(title, text):
     try:
         # Get the main activity from the environment
         activity_host_class = os.getenv("MAIN_ACTIVITY_HOST_CLASS_NAME")
